@@ -48,16 +48,19 @@ yes | pip install anytree
 
 # Install python 2 kernel environment and required packages
 conda create -y -n python2 python=2 ipykernel
-/bin/bash activate python2
+# Must run in bash to use "source"
+/bin/bash << EOF
+source activate python2
 python -m ipykernel install --user
 
 # Install theano with necessary dependencies for MAF
 conda install -y pygpu theano
-echo "export MKL_THREADING_LAYER=GNU" >> $SINGULARITY_ENVIRONMENT # Don't know if this is needed but keeping just in case
 
 # Install other needed python packages for MAF
 conda install -y plotly cython h5py
-/bin/bash deactivate # Go back to original python 3 environment
+source deactivate # Go back to original python 3 environment
+EOF
+echo "export MKL_THREADING_LAYER=GNU" >> $SINGULARITY_ENVIRONMENT # Don't know if this is needed but keeping just in case
 
 # Install mlpack from source (no longer needed since directly interfacing with library)
 #git clone https://github.com/mlpack/mlpack.git
