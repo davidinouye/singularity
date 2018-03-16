@@ -64,14 +64,14 @@ echo "export MKL_THREADING_LAYER=GNU" >> $SINGULARITY_ENVIRONMENT # Don't know i
 # Install mlpack from source since need newer version than on apt-get repositories
 # Installs to /usr/local/include/mlpack, /usr/local/lib/, /usr/local/bin/
 git clone https://github.com/mlpack/mlpack.git
-pushd mlpack
+cd mlpack
 git checkout tags/mlpack-2.2.5
 mkdir build
-pushd build
+cd build
 cmake -Wno-dev ../
 make -j4 install
-popd
-popd
+cd ..
+cd ..
 
 # Save linker library path
 echo "export LD_LIBRARY_PATH=/usr/local/lib/:\$LD_LIBRARY_PATH" >> $SINGULARITY_ENVIRONMENT
