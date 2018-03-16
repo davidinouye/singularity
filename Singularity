@@ -32,8 +32,7 @@ apt-get install -y libarmadillo-dev
 apt-get install -y libmlpack-dev
 
 # Install anaconda
-PROFILE=/etc/profile
-ANACONDA_DIR=/opt/anaconda
+ANACONDA_DIR=/anaconda
 wget https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
 bash Anaconda3-5.1.0-Linux-x86_64.sh -b -p $ANACONDA_DIR
 rm Anaconda3-5.1.0-Linux-x86_64.sh
