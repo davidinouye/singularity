@@ -1,3 +1,4 @@
+#!/bin/sh
 Bootstrap: docker
 From: ubuntu
 
