@@ -29,7 +29,7 @@ apt-get install -y liblapack-dev
 apt-get install -y libblas-dev
 apt-get install -y libboost-all-dev
 apt-get install -y libarmadillo-dev
-apt-get install -y libmlpack-dev
+# apt-get install -y libmlpack-dev # Old 2.0.2 version ugh..
 
 # Install anaconda
 ANACONDA_DIR=/anaconda
@@ -61,12 +61,21 @@ source deactivate # Go back to original python 3 environment
 EOF
 echo "export MKL_THREADING_LAYER=GNU" >> $SINGULARITY_ENVIRONMENT # Don't know if this is needed but keeping just in case
 
-# Install mlpack from source (no longer needed since directly interfacing with library)
-#git clone https://github.com/mlpack/mlpack.git
-#pushd mlpack
-#mkdir build
-#pushd build
-#cmake -Wno-dev ../
-#make -j2 install
-#popd
-#popd
+# Install mlpack from source since need newer version than on apt-get repositories
+# Installs to /usr/local/include/mlpack, /usr/local/lib/, /usr/local/bin/
+git clone https://github.com/mlpack/mlpack.git
+git checkout tags/mlpack-2.2.5
+pushd mlpack
+mkdir build
+pushd build
+cmake -Wno-dev ../
+make -j4 install
+popd
+popd
+
+# Save linker library path
+echo "export LD_LIBRARY_PATH=/usr/local/lib/:\$LD_LIBRARY_PATH" >> $SINGULARITY_ENVIRONMENT
+# I don't think these are needed
+#echo "export PATH=/usr/local/bin/:\$PATH" >> $SINGULARITY_ENVIRONMENT
+#echo "export CPPFLAGS=-I/usr/local/include/ \$CPPFLAGS" >> $SINGULARITY_ENVIRONMENT
+#echo "export LDFLAGS=-L/usr/local/lib/ \$LDFLAGS" >> $SINGULARITY_ENVIRONMENT
