@@ -69,7 +69,7 @@ git checkout tags/mlpack-2.2.5
 mkdir build
 cd build
 cmake -Wno-dev ../
-make -j4 install
+make install
 cd ..
 cd ..
 
