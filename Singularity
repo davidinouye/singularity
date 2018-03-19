@@ -65,7 +65,7 @@ echo "export MKL_THREADING_LAYER=GNU" >> $SINGULARITY_ENVIRONMENT # Don't know i
 # Installs to /usr/local/include/mlpack, /usr/local/lib/, /usr/local/bin/
 git clone https://github.com/mlpack/mlpack.git
 cd mlpack
-git checkout tags/mlpack-2.2.5
+git checkout 1ee8268 # Most recent commit hash as of 3/19/2018 since templates are only in master rather than released version
 mkdir build
 cd build
 cmake -Wno-dev ../
